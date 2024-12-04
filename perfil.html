@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EsportiVai - Perfil do Usuário</title>
+    <!-- Adicione o CSS do Toastify -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <!-- Adicione o script do Toastify -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: #fff;
+            padding: 15px;
+            flex-shrink: 0;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header bg-dark text-light py-2 px-4 d-flex justify-content-between align-items-center">
+        <img src="logo.jpeg" alt="logo" width="100" height="100">
+        <h1>EsportiVai</h1>
+        <a href="login.html" class="btn btn-outline-light btn-sm">Sair</a>
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard-container">
+        <!-- Sidebar Menu -->
+        <div class="sidebar">
+            <h4>Menu</h4>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="eventos.html">Meus Eventos</a>
+            <a href="participacao.html">Participações</a>
+            <a href="usuarios.html">Usuários</a>
+            <a href="Perfil.html">Perfil</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="profile-container">
+                <h2 class="text-center">Meu Perfil</h2>
+                <form id="profileForm">
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" disabled >
+                    </div>
+                 
+
+                    <div class="text-center mt-4">
+                        <button type="button" class="btn btn-primary" id="sportsButton" data-bs-toggle="modal"
+                            data-bs-target="#manageSportsModal">Esportes</button>
+                       
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>EsportiVai &copy; 2024 - Todos os direitos reservados.</p>
+    </div>
+
+    <!-- Modal para Gerenciar Esportes -->
+    <div class="modal fade" id="manageSportsModal" tabindex="-1" aria-labelledby="manageSportsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manageSportsModalLabel">Gerenciar Esportes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Seletores para Adicionar Novo Esporte -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="selectSport" class="form-label">Esporte</label>
+                            <select id="selectSport" class="form-select">
+                                <option value="1">Futebol</option>
+                                <option value="2">Basquete</option>
+                                <option value="3">Vôlei</option>
+                                <option value="4">Tênis</option>
+                                <option value="5">Natação</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selectSkillLevel" class="form-label">Nível de Habilidade</label>
+                            <select id="selectSkillLevel" class="form-select">
+                                <option value="iniciante">Iniciante</option>
+                                <option value="intermediário">Intermediário</option>
+                                <option value="avançado">Avançado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="addSportButton" class="btn btn-primary mb-3">Adicionar Esporte</button>
+
+                    <!-- Tabela de Esportes -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Esporte</th>
+                                <th>Nível de Habilidade</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sportsTableBody">
+                            <!-- Esportes serão renderizados dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="perfil.js"></script>
+</body>
+
+</html>
